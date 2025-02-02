@@ -1,9 +1,11 @@
 "use strict"
-
+import { Notyf } from 'notyf';
+import 'notyf/notyf.min.css'; 
 import {generatePalette, isHexColor, displayShadow} from "./modules/utils.js";
 import {Color} from "./modules/Color.js";
 import * as convert from "color-convert";
 
+const notyf = new Notyf();
 
 const form = document.querySelector("form");
 const input = document.querySelector("input");
@@ -20,7 +22,7 @@ form.addEventListener("submit", (e)=> {
         displayColors(palette);
 
     } else {
-        throw new Error(`${input.value} is not a valid Hexadecimal color`);
+        notyf.error(`${input.value} is not a valid Hexadecimal color`)
     }
 
 
@@ -32,7 +34,7 @@ main.addEventListener("click", async (e)=> {
     if(e.target.localName == 'div') {
 
         await navigator.clipboard.writeText(e.target.dataset.color);
-
+        notyf.success(`copied ${e.target.dataset.color} to clipboard`)
     } 
    
 })
